@@ -31,10 +31,12 @@ async function sleep() {
   });
 }
 
+// Simple function to pick the playing order
 function pickPlayerOrder() {
   return Math.random() > 0.5 ? [model1, model2] : [model2, model1];
 }
 
+// Scoring logic
 function calculateScore({ player1Pick, player2Pick }: { player1Pick: Choices; player2Pick: Choices }) {
   if (player1Pick === player2Pick && player1Pick === "GREEN") {
     return [3, 3];

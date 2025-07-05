@@ -20,10 +20,17 @@ To play the game, you will have to strictly follow the instructions:
 - YOU MUST NEVER reply anything other than "GREEN" or "RED"
 `;
 
+// Non-exhaustive list of some free models from openrouter
+const freeOpenRouterModels = ["openrouter/cypher-alpha:free", "deepseek/deepseek-r1:free", "google/gemini-2.0-flash-exp:free", "qwen/qwq-32b:free", "google/gemma-3-27b-it:free", "meta-llama/llama-4-maverick:free"];
 
 // The competing models
-const model1 = "openrouter/cypher-alpha:free";
-const model2 = "deepseek/deepseek-r1-0528-qwen3-8b:free";
+const model1 = freeOpenRouterModels[Math.floor(Math.random() * freeOpenRouterModels.length)];
+const model2 = freeOpenRouterModels[Math.floor(Math.random() * freeOpenRouterModels.length)];
+
+if (model1 === model2) {
+  console.log("We picked the same model for both players. Please run again. Bye!");
+  process.exit(0);
+}
 
 async function sleep() {
   return new Promise((resolve) => {
@@ -95,7 +102,7 @@ async function runGame() {
 
     messagesForPlayer2.push({
       role: "user",
-      content: `This is round ${currentRound}. Player 1 picked ${player1Reply}. Please pick your choice`,
+      content: `This is round ${currentRound}. Please pick your choice`,
     });
 
     const player2Reply = await getMessage({ messages: messagesForPlayer2, model: players[1] });
@@ -112,6 +119,10 @@ async function runGame() {
     messagesForPlayer1.push({
       role: "user",
       content: `Player 2 picked ${player2Reply} for round ${currentRound}. Please pick your choice for round ${currentRound + 1}`,
+    });
+    messagesForPlayer2.push({
+      role: "user",
+      content: `Player 1 picked ${player1Reply} for round ${currentRound}`,
     });
     console.log("==========================");
     currentRound += 1;

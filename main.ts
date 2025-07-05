@@ -18,7 +18,7 @@ To play the game, you will have to strictly follow the instructions:
 - You MUST always reply with one word - either "GREEN" or "RED"
 - You MUST look at all the previous messages and devise a strategy
 - YOU MUST NEVER reply anything other than "GREEN" or "RED"
-- I repeat, you MUST reply "GREEN" or "RED" and NEVER add any other extra words, punctuations or newline characters. 
+- Reiterating, you MUST reply "GREEN" or "RED" and NEVER add any other extra words, punctuations or newline characters. 
 `;
 
 // Non-exhaustive list of some free models from openrouter

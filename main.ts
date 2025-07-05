@@ -15,9 +15,10 @@ Rules of the game are:
 - The game will continue for 10 rounds
 
 To play the game, you will have to strictly follow the instructions:
-- You MUST always reply with either "GREEN" or "RED"
+- You MUST always reply with one word - either "GREEN" or "RED"
 - You MUST look at all the previous messages and devise a strategy
 - YOU MUST NEVER reply anything other than "GREEN" or "RED"
+- I repeat, you MUST reply "GREEN" or "RED" and NEVER add any other extra words, punctuations or newline characters. 
 `;
 
 // Non-exhaustive list of some free models from openrouter
@@ -95,8 +96,13 @@ async function runGame() {
 
     const player1Reply = await getMessage({ messages: messagesForPlayer1, model: players[0] });
     if (!assertChoice(player1Reply)) {
-      throw new Error("Invalid reply received from player 1");
+      throw new Error("Invalid reply received from player 1", { cause: player1Reply });
     }
+    messagesForPlayer1.push({
+      role: "assistant",
+      content: player1Reply,
+    });
+
     console.log("Player 1: ", player1Reply);
     await sleep();
 
@@ -107,8 +113,12 @@ async function runGame() {
 
     const player2Reply = await getMessage({ messages: messagesForPlayer2, model: players[1] });
     if (!assertChoice(player2Reply)) {
-      throw new Error("Invalid message received from player 2");
+      throw new Error("Invalid message received from player 2", { cause: player2Reply });
     }
+    messagesForPlayer2.push({
+      role: "assistant",
+      content: player2Reply,
+    });
     console.log("Player 2: ", player2Reply);
 
     const roundScore = calculateScore({ player1Pick: player1Reply, player2Pick: player2Reply });

@@ -18,3 +18,6 @@ Set the `OPENROUTER_API_KEY` environment variable with your key
 - Run `npm i` to install dependencies
 - Set the preferred models in `main.ts`
 - Run `npm run build && npm start` to run the simulation
+
+
+The models may send replies which are not in accordance to the system prompt
